@@ -1,0 +1,73 @@
+POST http://localhost:3003/api/users
+Content-Type: application/json
+
+{
+  "username": "admin",
+  "password": "admin"  
+}
+
+###
+
+POST http://localhost:3003/api/users
+Content-Type: application/json
+
+{
+  "username": "sergio",
+  "name": "sergio",
+  "password": "sergio"  
+}
+
+### No username
+
+POST http://localhost:3003/api/users
+Content-Type: application/json
+
+{
+  "username": "",
+  "name": "sergio",
+  "password": "sergio"  
+}
+
+### Too short username
+
+POST http://localhost:3003/api/users
+Content-Type: application/json
+
+{
+  "username": "ser",
+  "name": "sergio",
+  "password": "sergio"  
+}
+
+### User uniqueness
+
+POST http://localhost:3003/api/users
+Content-Type: application/json
+
+{
+  "username": "sergio",
+  "name": "sergio",
+  "password": "sergio"  
+}
+
+### No password
+
+POST http://localhost:3003/api/users
+Content-Type: application/json
+
+{
+  "username": "notSergio",
+  "name": "sergio",
+  "password": ""  
+}
+
+### Too short password
+
+POST http://localhost:3003/api/users
+Content-Type: application/json
+
+{
+  "username": "notSergio",
+  "name": "sergio",
+  "password": "123"  
+}

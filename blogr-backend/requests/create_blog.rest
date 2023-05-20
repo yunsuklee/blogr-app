@@ -1,0 +1,20 @@
+POST http://localhost:3003/api/blogs
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFkbWluIiwiaWQiOiI2NDY4ZjM2NWFmN2FhMTcwMjBkNmZkNDQiLCJpYXQiOjE2ODQ2MDA4MTN9.MVDOhdzQcA9gBLGU7aqcR8JtELT1pbtSNhGMMtDBUfs
+
+{
+  "content": "Second blog!",
+  "userId": "6468f365af7aa17020d6fd44"
+}
+
+### 
+
+POST http://localhost:3003/api/blogs
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFkbWluIiwiaWQiOiI2NDY4ZjM2NWFmN2FhMTcwMjBkNmZkNDQiLCJpYXQiOjE2ODQ2MDA4MTN9.MVDOhdzQcA9gBLGU7aqcR8JtELT1pbtSNhGMMtDBUfs
+
+{
+  "content": "Deletable blog",
+  "userId": "6468f365af7aa17020d6fd44"
+}
+

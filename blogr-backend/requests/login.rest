@@ -1,0 +1,37 @@
+POST http://localhost:3003/api/login
+Content-Type: application/json
+
+{
+  "username": "admin",
+  "password": "admin"
+}
+
+###
+
+POST http://localhost:3003/api/login
+Content-Type: application/json
+
+{
+  "username": "sergio",
+  "password": "sergio"
+}
+
+### Wrong username
+
+POST http://localhost:3003/api/login
+Content-Type: application/json
+
+{
+  "username": "notSergio",
+  "password": "sergio"
+}
+
+### Wrong password
+
+POST http://localhost:3003/api/login
+Content-Type: application/json
+
+{
+  "username": "sergio",
+  "password": "notSergio"
+}
