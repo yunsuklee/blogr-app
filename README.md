@@ -1,7 +1,7 @@
 # Blogr App
 
   A blogging app twitter-like made with React, Node + Express and Mongo + Mongoose.
-  Implements REST API's and is styled with styled-components.
+  Implemented using REST API's and styled with styled-components.
 
 ## Scripts
 
