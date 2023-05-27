@@ -4,13 +4,15 @@ const mongoose = require('mongoose')
 const blogSchema = new mongoose.Schema({
   content: {
     type: String,
-    required: true
+    required: true,
+    minlength: 1
   },
   likes: Number,
   creationDate: {
     type: Date,
-    default: Date.now,
-    requires: true
+    default: function () {
+      return new Date()
+    }
   },
   user: {
     type: mongoose.Schema.Types.ObjectId,

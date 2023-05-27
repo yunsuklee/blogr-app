@@ -25,13 +25,24 @@ blogsRouter.post('/', middleware.userExtractor, async (request, response) => {
   const body = request.body
   const user = request.user // userExtractor attaches the user information
 
-  const blog = new Blog({
+  const newBlog = new Blog({
     ...body,
     likes: body.likes ? body.likes : 0,
     user: user._id
   })
 
-  const savedBlog = await blog.save()
+  // Blog validation
+  if (!newBlog.content) {
+    return response.status(400).json({
+      error: 'content is required'
+    })
+  } else if (!newBlog.content.length) {
+    return response.status(400).json({
+      error: 'content needs minimum characters'
+    })
+  }
+
+  const savedBlog = await newBlog.save()
   user.blogs = user.blogs.concat(savedBlog._id)
   await user.save()
 
