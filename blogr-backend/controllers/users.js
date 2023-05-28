@@ -1,5 +1,6 @@
 const bcrypt = require('bcrypt')
 const usersRouter = require('express').Router()
+const middleware = require('../utils/middleware')
 const User = require('../models/user')
 
 // Retrieves all users
@@ -57,6 +58,29 @@ usersRouter.post('/', async (request, response) => {
   const savedUser = await user.save()
 
   response.status(201).json(savedUser)
+})
+
+// Deletes a user by ID
+usersRouter.delete('/:id', middleware.userExtractor, async (request, response) => {
+  const user = request.user // userExtractor attaches the user information
+
+  const { password } = request.body
+
+  // Verifies if password is correct for user
+  const passwordCorrect = user === null
+    ? false
+    : await bcrypt.compare(password, user.passwordHash)
+
+  if (!(user && passwordCorrect)) {
+    return response.status(401).json({
+      error: 'invalid password'
+    })
+  }
+
+  const userToDelete = await User.findById(request.params.id)
+  await User.findByIdAndRemove(userToDelete.id)
+
+  response.status(204).end()
 })
 
 module.exports = usersRouter

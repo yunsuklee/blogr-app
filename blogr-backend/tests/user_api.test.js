@@ -58,6 +58,27 @@ describe('When there is initially one user in db', () => {
     const usersAtEnd = await helper.usersInDb() // Gets users after insesrt
     expect(usersAtEnd).toEqual(usersAtStart) // Checks for immutability
   })
+
+  test('User can be removed with correct password', async () => {
+    const usersAtStart = await helper.usersInDb()
+
+    const userToDelete = usersAtStart[0]
+
+    const response = await api // Logs in
+      .post('/api/login')
+      .send({ username: 'test', password: 'test' })
+      .expect(200)
+      .expect('Content-Type', /application\/json/)
+
+    await api
+      .delete(`/api/users/${userToDelete.id}`)
+      .set('Authorization', 'Bearer ' + response.body.token)
+      .send({ password: 'test' })
+      .expect(204)
+
+    const usersAfterDeletion = await helper.usersInDb()
+    expect(usersAfterDeletion).toHaveLength(usersAtStart.length - 1)
+  })
 })
 
 describe('Creating new users', () => {
