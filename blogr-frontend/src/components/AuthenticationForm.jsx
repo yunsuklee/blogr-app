@@ -5,11 +5,12 @@ import LoginForm from './LoginForm'
 import RegisterForm from './RegisterForm'
 
 import loginService from '../services/login'
+import registerService from '../services/register'
 import blogService from '../services/blogs'
 
 const AuthenticationForm = ({
   setUser,
-  handleMessage
+  setNotification
 }) => {
   const [isNew, setIsNew] = useState(false)
   const [username, setUsername] = useState('')
@@ -32,9 +33,9 @@ const AuthenticationForm = ({
     setUsername('')
     setPassword('')
 
-    handleMessage('success', `Welcome back ${user.username}!`)
+    setNotification('success', `Welcome back ${user.username}!`)
   } catch (exception) {
-    handleMessage('error', 'Wrong username or password')
+    setNotification('error', 'Wrong username or password')
   }
 }
 
@@ -42,7 +43,7 @@ const handleRegister = async event => {
   event.preventDefault()
 
   try {
-    const user = await loginService.login({
+    const user = await registerService.create({
       username, password
     })
 
@@ -55,9 +56,9 @@ const handleRegister = async event => {
     setUsername('')
     setPassword('')
 
-    handleMessage('success', `Welcome back ${user.username}!`)
+    setNotification('success', `Welcome ${user.username}!`)
   } catch (exception) {
-    handleMessage('error', 'Wrong username or password')
+    setNotification('error', 'Wrong username or password')
   }
 }
 
@@ -80,16 +81,19 @@ const handleRegister = async event => {
             setPassword={setPassword}
           />
         )}
-        <button onClick={() => setIsNew(!isNew)}>
-          {isNew ? 'Already have an account? Login' : "Don't have an account? Register"}
-        </button>
+        <p>
+          {isNew ? 'Already have an account?' : "Dont't have an account yet?"}
+          <button onClick={() => setIsNew(!isNew)}>
+            {isNew ? 'Login' : 'Create one'}
+          </button>
+        </p>
     </div>
   )
 }
 
 AuthenticationForm.propTypes = {
   setUser: PropTypes.func.isRequired,
-  handleMessage: PropTypes.func.isRequired
+  setNotification: PropTypes.func.isRequired
 }
 
 export default AuthenticationForm

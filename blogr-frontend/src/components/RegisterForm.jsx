@@ -9,6 +9,7 @@ const RegisterForm = ({
 }) => {
   return (
     <div>
+      <h2>Register to Blogr</h2>
       <form onSubmit={handleRegister}>
         <div>
           <label>Username</label>

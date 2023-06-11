@@ -17,7 +17,7 @@ const blogSchema = new mongoose.Schema({
   user: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User'
-  },
+  }
 })
 
 // Specifies how the document should be transformed when converted to JSON

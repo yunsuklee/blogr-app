@@ -1,7 +1,9 @@
 import { useState, useEffect } from 'react'
+
 import AuthenticationForm from './components/AuthenticationForm'
-import BlogList from './components/BlogList'
 import Notification from './components/Notification'
+import BlogList from './components/BlogList'
+
 import blogService from './services/blogs'
 
 const App = () => {
@@ -22,7 +24,7 @@ const App = () => {
     }
   }, [])
 
-  const handleMessage = (type, message, timeout = 5000) => {
+  const setNotification = (type, message, timeout = 5000) => {
     setMessageType(type)
     setMessage(message)
 
@@ -41,17 +43,14 @@ const App = () => {
       {!user && // If there is no user currently logged in
         <AuthenticationForm
           setUser={setUser}
-          handleMessage={handleMessage}
+          setNotification={setNotification}
         />
       }
       {user &&
         <BlogList
           user={user}
           setUser={setUser}
-          message={message}
-          setMessage={setMessage}
-          messageType={messageType}
-          setMessageType={setMessageType}
+          setNotification={setNotification}
         />
       }
     </div>
