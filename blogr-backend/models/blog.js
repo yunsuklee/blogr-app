@@ -7,7 +7,10 @@ const blogSchema = new mongoose.Schema({
     required: true,
     minlength: 1
   },
-  likes: Number,
+  likes: [{ // Likes is an array of users who liked the blog
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User'
+  }],
   creationDate: {
     type: Date,
     default: function () {

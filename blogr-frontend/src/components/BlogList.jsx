@@ -39,9 +39,9 @@ const BlogList = ({
     <div>
       <h2>blogs</h2>
       <p>
-        {user.name} logged in
+        {user.username} logged in
         <button onClick={() => {
-          window.localStorage.removeItem('loggedBlogAppUser')
+          window.localStorage.removeItem('loggedBlogrAppUser')
           setUser(null)
         }}>
           logout

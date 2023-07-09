@@ -21,7 +21,6 @@ describe('When there is initially one user in db', () => {
 
     const newUser = { // Creates user to insert
       username: 'test2',
-      name: 'test2',
       password: 'test2'
     }
 
@@ -43,7 +42,6 @@ describe('When there is initially one user in db', () => {
 
     const newUser = { // Creates user to insert
       username: 'test',
-      name: 'test',
       password: 'test'
     }
 

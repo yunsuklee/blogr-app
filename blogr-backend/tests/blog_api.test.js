@@ -1,6 +1,7 @@
 const supertest = require('supertest')
 const helper = require('./test_helper')
 const bcrypt = require('bcrypt')
+const crypto = require('crypto')
 const app = require('../app')
 const api = supertest(app)
 
@@ -110,7 +111,7 @@ describe('When adding new blogs', () => {
     const blogsAfterAdding = await helper.blogsInDb()
     expect(blogsAfterAdding).toHaveLength(helper.initialBlogs.length + 1)
 
-    expect(blogsAfterAdding.at(-1).likes).toBe(0)
+    expect(blogsAfterAdding.at(-1).likes.length).toBe(0)
   })
 
   test('Date is set', async () => {
@@ -140,12 +141,9 @@ describe('When adding new blogs', () => {
   test('No content fails', async () => {
     const emptyContent = {
       content: '',
-      likes: 100,
     }
 
-    const noContent = {
-      likes: 100,
-    }
+    const noContent = {}
 
     const response = await api
       .post('/api/login')
@@ -227,8 +225,10 @@ describe('Manipulating already existing blogs', () => {
     const blogsBeforeUpdate = await helper.blogsInDb()
     const blogToUpdate = blogsBeforeUpdate[0]
 
+    const userId = crypto.randomUUID()
+
     const updatedBlog = {
-      likes: 10000
+      likes: [userId]
     }
 
     await api
@@ -237,6 +237,6 @@ describe('Manipulating already existing blogs', () => {
       .expect(200)
 
     const blogsAfterUpdate = await helper.blogsInDb()
-    expect(blogsAfterUpdate[0].likes).toBe(10000)
+    expect(blogsAfterUpdate[0].likes.length).toBe(1)
   })
 })

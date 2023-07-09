@@ -27,7 +27,7 @@ blogsRouter.post('/', middleware.userExtractor, async (request, response) => {
 
   const newBlog = new Blog({
     ...body,
-    likes: body.likes ? body.likes : 0,
+    likes: [],
     user: user._id
   })
 
@@ -66,10 +66,30 @@ blogsRouter.delete('/:id', middleware.userExtractor, async (request, response) =
 
 // Updates a Blog's likes
 blogsRouter.put('/:id', async (request, response) => {
-  const blog = { ...request.body }
-  const updatedBlog =
-    await Blog.findByIdAndUpdate(request.params.id, blog, { new: true })
-  response.json(updatedBlog)
+  const { id: blogId } = request.params
+  const { userId } = request.body
+
+  try {
+    const blog = await Blog.findById(blogId)
+
+    // Check if blog exists
+    if (!blog) {
+      return response.status(404).json({ error: 'Blog not found' })
+    }
+
+    // Check if user has already liked blog
+    if (blog.likes.includes(userId)) {
+      return response.status(400).json({ error: 'User has already liked the blog' })
+    }
+
+    // Add the User's Id to the likes array
+    blog.likes.push(userId)
+    await blog.save()
+    return response.status(200).json(blog)
+  } catch (error) {
+    console.error(error)
+    return response.status(500).json({ error: 'Internal server error' })
+  }
 })
 
 module.exports = blogsRouter

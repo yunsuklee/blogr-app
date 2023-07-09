@@ -21,7 +21,7 @@ const remove = async id => {
     headers: { Authorization: token }
   }
 
-  await axios.post(`${baseUrl}/${id}`, config)
+  await axios.delete(`${baseUrl}/${id}`, config)
 }
 
 const getAll = async () => {

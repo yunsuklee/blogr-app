@@ -38,9 +38,6 @@ const LoginForm = ({
           Login
         </button>
       </form>
-      <p>
-        {/* Do not have an account yet? <a onClick={() => setIsNew(!isNew)}>Register</a> now! */}
-      </p>
     </div>
   )
 }
